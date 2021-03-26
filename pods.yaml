@@ -1,0 +1,29 @@
+#specify the api version, the kind of deployment and the application name
+apiVersion: v1
+kind: Pod
+metadata: 
+  name: kobo360app
+
+#initialize the services and the image
+services: 
+  kobo360app: 
+    build: 
+      context: "."
+      dockerfile: kobo360app/Dockerfile
+    image: “${DOCKER_REGISTRY-}kobo360app"
+
+#specify how
+spec: 
+  replicas: 1
+  template: 
+    metadata: 
+      labels: 
+        app: kobo360app
+    spec: 
+      containers: 
+        - 
+          image: "nginx:latest"
+          name: kobo3
+          ports: 
+            - 
+              containerPort: 8080
